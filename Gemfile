@@ -51,6 +51,9 @@ gem 'jquery-rails', '~> 4.4'
 # Use jQuery Validation to validate client-side form
 gem 'jquery-validation-rails'
 
+# Use Rolify to assign roles
+gem 'rolify', '~> 6.0'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]

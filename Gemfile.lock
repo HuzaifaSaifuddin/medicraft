@@ -170,6 +170,7 @@ GEM
     redis (4.6.0)
     regexp_parser (2.4.0)
     rexml (3.2.5)
+    rolify (6.0.0)
     rspec-core (3.11.0)
       rspec-support (~> 3.11.0)
     rspec-expectations (3.11.0)
@@ -276,6 +277,7 @@ DEPENDENCIES
   rack-mini-profiler
   rails (~> 5.2.6)
   redis (~> 4.0)
+  rolify (~> 6.0)
   rspec-rails (~> 5.1, >= 5.1.2)
   rubocop (~> 1.28, >= 1.28.2)
   rubocop-performance (~> 1.13, >= 1.13.3)
