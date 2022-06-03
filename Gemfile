@@ -54,6 +54,9 @@ gem 'jquery-validation-rails'
 # Use Rolify to assign roles
 gem 'rolify', '~> 6.0'
 
+# Font Awesome
+gem 'font-awesome-rails', '~> 4.7', '>= 4.7.0.7'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]

@@ -4,7 +4,6 @@ class Role
 
   field :name, type: String
 
-
   has_and_belongs_to_many :users
   belongs_to :resource, polymorphic: true, optional: true
 
@@ -19,7 +18,7 @@ class Role
   private
 
   def stop_create
-    return if ['owner', 'admin', 'doctor', 'receptionist'].include?(name)
+    return if %w[owner admin doctor receptionist].include?(name)
 
     errors.add(:base, 'Cannot create new Roles')
     throw :abort

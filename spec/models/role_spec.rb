@@ -12,26 +12,26 @@ RSpec.describe Role, type: :model do
     end
 
     it 'is invalid without a unique name' do
-      role = create(:role)
+      create(:role)
       expect(build(:role)).to be_invalid
     end
   end
 
   describe 'stop_create' do
     it 'doesnt create new roles (apart from the given list)' do
-      expect {
+      expect do
         role = build(:role, name: 'newuser')
         role.send(:stop_create)
-      }.to raise_error(UncaughtThrowError)
+      end.to raise_error(UncaughtThrowError)
     end
   end
 
   describe 'stop_destroy' do
     it 'doesnt destroy created role(s)' do
-      expect {
+      expect do
         role = build(:role)
         role.send(:stop_destroy)
-      }.to raise_error(UncaughtThrowError)
+      end.to raise_error(UncaughtThrowError)
     end
   end
 end

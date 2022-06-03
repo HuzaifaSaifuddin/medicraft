@@ -11,6 +11,14 @@ RSpec.describe Organisation, type: :model do
       expect(build(:organisation, name: nil)).to be_invalid
     end
 
+    it 'is invalid without a email' do
+      expect(build(:organisation, email: nil)).to be_invalid
+    end
+
+    it 'is invalid without a contact_number' do
+      expect(build(:organisation, contact_number: nil)).to be_invalid
+    end
+
     it 'is invalid without correct format email' do
       expect(build(:organisation, email: 'dummy')).to be_invalid
     end

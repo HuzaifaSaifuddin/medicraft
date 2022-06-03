@@ -18,5 +18,11 @@ class Facility
 
   belongs_to :organisation
 
-  validates_presence_of :name, :abbreviation, :contact_number, :email
+  validates_presence_of :name, :contact_number, :email
+
+  validates :email, format: { with: /\A[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]+\z/,
+                              message: 'Please enter a valid email' }, if: -> { email.present? }
+
+  validates :contact_number, format: { with: /\d[0-9]\)*\z/, message: 'Please enter a valid number' },
+                             if: -> { contact_number.present? }
 end

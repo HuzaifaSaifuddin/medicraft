@@ -1,0 +1,50 @@
+<div class="container-fluid login-page">
+  <div class="row mt-5">
+    <div class="col-md-12 text-center">
+      <h2 class="text-success">Welcome to MediCraft</h2>
+      <p>Login to your account</p>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-md-4 offset-md-4">
+      <%= form_for :session, url: login_path, html: { id: 'new_session' } do |f| %>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <span>Email<sup class="text-danger">*</sup></span>
+              <%= f.email_field :email, class: 'form-control', required: true %>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="form-group">
+              <span>Password<sup class="text-danger">*</sup></span>
+              <%= f.password_field :password, class: 'form-control', required: true, minlength: 8, maxlength: 24 %>
+            </div>
+          </div>
+        </div>
+        <% if !flash.empty? && flash[:notice].present?%>
+          <div class="row mb-3 text-center">
+            <div class="col-md-12">
+              <span class="text-danger"><%= flash[:notice] %></span>
+            </div>
+          </div>
+        <% end %>
+        <div class="row">
+          <div class="col-md-12 mb-3">
+            <%= f.submit 'Login', class: 'btn btn-success w-100', onclick: 'validateSession()' %>
+          </div>
+          <div class="col-6">
+            <%= link_to 'Signup', signup_path, class: '' %>
+          </div>
+          <div class="col-6 text-right">
+            <%= link_to 'Forgot Password?', signup_path, class: '' %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  <%= render partial: 'new.js.erb' %>
+</script>
