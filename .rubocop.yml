@@ -86,6 +86,10 @@ Lint/UnmodifiedReduceAccumulator:
 Lint/UselessRuby2Keywords:
   Enabled: true
 
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*.rb'
+
 Naming/BlockForwarding:
   Enabled: true
 
@@ -181,6 +185,9 @@ Style/StringChars:
 
 Style/SwapValues:
   Enabled: true
+
+Style/SymbolArray:
+  Enabled: false
 
 Style/EnvHome: # new in 1.29
   Enabled: true

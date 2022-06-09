@@ -1,0 +1,103 @@
+function validateOrganisation() {
+  $("#new_organisation").validate({
+    rules: {
+      // Rules written inline
+    },
+    messages: {
+      'organisation[users_attributes][0][salutation]': {
+        required: 'Salutation is required.'
+      },
+      'organisation[users_attributes][0][first_name]': {
+        required: 'First name is required.'
+      },
+      'organisation[users_attributes][0][last_name]': {
+        required: 'Last name is required.'
+      },
+      'organisation[users_attributes][0][gender]': {
+        required: 'Gender is required.'
+      },
+      'organisation[users_attributes][0][mobile_number]': {
+        required: 'Mobile number is required.',
+        pattern: 'Enter a valid mobile number.'
+      },
+      'organisation[users_attributes][0][birth_date]': {
+        required: 'Birth date is required.',
+        pattern: 'Enter a valid birth date.'
+      },
+      'organisation[users_attributes][0][email]': {
+        required: 'Email is required.',
+        email: 'Enter a valid email.'
+      },
+      'organisation[users_attributes][0][password]': {
+        required: 'Password is required.',
+        pattern: 'Enter Password as per the below requirements'
+      },
+      'organisation[users_attributes][0][password_confirmation]': {
+        required: 'Password confirmation is required.',
+        equalTo: 'Password doesn\'t Match.'
+      },
+      'organisation[name]': {
+        required: 'Name is required.'
+      },
+      'organisation[email]': {
+        required: 'Email is required.',
+        email: 'Enter a valid email.'
+      },
+      'organisation[contact_number]': {
+        required: 'Contact number is required.',
+        pattern: 'Enter a valid mobile number.'
+      },
+      'organisation[terms]': {
+        required: 'Please accept the terms and privacy policy'
+      }
+    },
+    errorPlacement: function (error, element) {
+      name = $(element).attr('name');
+      if (name === 'organisation[users_attributes][0][role_ids][]') {
+        error.appendTo($('#role-error'));
+      } else if ($(element).hasClass('custom-control-input')) {
+        error.appendTo($(element).parent());
+      } else {
+        error.insertAfter(element);
+      }
+    }
+  })
+}
+
+$.validator.addMethod("AdminOwnerRole", function(value, element) {
+  return !!$('.owner-admin-roles:checked').val();
+}, "Please select atleast 1 role");
+
+$.validator.addClassRules("owner-admin-roles", { AdminOwnerRole: true });
+
+const userBirthdatePicker = () => {
+  // User DOB Datepicker
+  const eighteenYearsAgo = new Date().getFullYear() - 5
+  const eighteenYearsAgoDate = new Date(new Date().setFullYear(eighteenYearsAgo))
+
+  $('#organisation_users_attributes_0_birth_date').pickdate({
+    format : 'dd/mm/yyyy',
+    max : eighteenYearsAgoDate,
+    selectYears : 100,
+    selectMonths : true
+  });
+}
+
+userBirthdatePicker();
+
+const setPasswordColor = (field, present) => {
+  if (present) {
+    $(field).addClass('text-success').removeClass('text-danger');
+  } else {
+    $(field).addClass('text-danger').removeClass('text-success');
+  }
+}
+
+$('#organisation_users_attributes_0_password').on('keyup', function() {
+  let password = $(this).val();
+
+  setPasswordColor('.upper', password !== password.toLowerCase());
+  setPasswordColor('.lower', password !== password.toUpperCase());
+  setPasswordColor('.number', password.match(/\d+/g) !== null);
+  setPasswordColor('.special', password.match(/[@#$%&]/g) !== null);
+});

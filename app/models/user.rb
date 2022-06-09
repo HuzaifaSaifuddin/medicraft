@@ -40,7 +40,7 @@ class User
   validates :email, format: { with: /\A[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]+\z/,
                               message: 'Please enter a valid email' }, if: -> { email.present? }
 
-  validates :password, format: { with: /\A(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$%^&+=]).{8,}\z/,
+  validates :password, format: { with: /\A(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$%&]).{8,}\z/,
                                  message: 'Please enter a valid password' },
                        confirmation: { message: 'Passwords Do not Match' },
                        allow_nil: true, if: -> { password.present? }
@@ -48,7 +48,25 @@ class User
   validates :mobile_number, format: { with: /\d[0-9]\)*\z/, message: 'Please enter a valid number' },
                             if: -> { mobile_number.present? }
 
+  def self.salutations
+    %w[Dr Mr Mrs Ms Sr Mx]
+  end
+
+  validates :salutation, inclusion: { in: salutations, message: "should be from #{salutations.join(', ')} " }
+
   before_validation :encrypt_password
+
+  def self.authenticate(email = '', login_password = '')
+    return unless email.present? && login_password.present?
+
+    user = User.find_by(email: email, active: true)
+
+    return user if user&.match_password(login_password)
+  end
+
+  def match_password(login_password = '')
+    encrypted_password == BCrypt::Engine.hash_secret(login_password, salt)
+  end
 
   private
 

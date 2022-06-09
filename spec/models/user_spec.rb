@@ -55,7 +55,7 @@ RSpec.describe User, type: :model do
   describe 'encrypt_password' do
     it 'encrypts password when password provided' do
       user = build(:user)
-      user.send('encrypt_password')
+      user.send(:encrypt_password)
 
       expect(user.salt).not_to eq(nil)
       expect(user.encrypted_password).not_to eq(nil)
@@ -63,7 +63,7 @@ RSpec.describe User, type: :model do
 
     it 'doesnt encrypts password when password is nil' do
       user = build(:user, password: nil)
-      user.send('encrypt_password')
+      user.send(:encrypt_password)
 
       expect(user.salt).to eq(nil)
       expect(user.encrypted_password).to eq(nil)

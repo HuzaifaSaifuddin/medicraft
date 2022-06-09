@@ -10,10 +10,22 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require jquery
 //= require rails-ujs
 //= require turbolinks
-//= require jquery
-//= require jquery_ujs
+//= require popper.min
+//= require bootstrap.min
+//= require material.min
+//= require picker.min
+//= require picker.date.min
 //= require jquery.validate
 //= require jquery.validate.additional-methods
 //= require_tree .
+
+$('body').on('hide.bs.modal', '.modal', function () {
+  $('.modal-backdrop').remove();
+});
+
+$(document).on('turbolinks:load', function() {
+  $('input').trigger('change');
+});

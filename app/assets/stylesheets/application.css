@@ -13,3 +13,24 @@
  *= require_tree .
  *= require_self
  */
+
+* {
+  font-family: Menlo, 'PT Mono', Monaco, sans-serif;
+}
+
+/* Error Message */
+label.error {
+  color: #f00 !important;
+}
+
+/* Skip Content */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  z-index: 100;
+}
+
+.skip-link:focus {
+  top: 0;
+}

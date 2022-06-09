@@ -1,0 +1,15 @@
+function validateSession() {
+  $("#new_session").validate({
+    rules: {
+      // Rules written inline
+    },
+    messages: {
+      'session[email]': {
+        required: 'Email is required'
+      },
+      'session[password]': {
+        required: 'Password is required'
+      },
+    }
+  })
+}
