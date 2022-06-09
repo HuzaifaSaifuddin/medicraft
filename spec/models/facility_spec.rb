@@ -7,16 +7,20 @@ RSpec.describe Facility, type: :model do
   end
 
   describe 'Validations' do
-    it 'is invalid without a name' do
+    it 'is invalid without name' do
       expect(build(:facility, name: nil)).to be_invalid
     end
 
-    it 'is invalid without a email' do
+    it 'is invalid without email' do
       expect(build(:facility, email: nil)).to be_invalid
     end
 
-    it 'is invalid without a contact_number' do
+    it 'is invalid without contact_number' do
       expect(build(:facility, contact_number: nil)).to be_invalid
+    end
+
+    it 'is invalid without organisation' do
+      expect(build(:facility, organisation: nil)).to be_invalid
     end
 
     it 'is invalid without correct format email' do

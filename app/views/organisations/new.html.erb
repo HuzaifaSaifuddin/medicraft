@@ -23,7 +23,7 @@
               <div class="col-md-2">
                 <div class="form-group">
                   <span>Salutation<sup class="text-danger">*</sup></span>
-                  <%= builder.select :salutation, User.salutations.map{ |v| ["#{v}.", v] }, { include_blank: true }, class: 'form-control', required: true %>
+                  <%= builder.select :salutation, User::SALUTATIONS.map{ |v| ["#{v}.", v] }, { include_blank: true }, class: 'form-control', required: true %>
                 </div>
               </div>
               <div class="col-md-10">

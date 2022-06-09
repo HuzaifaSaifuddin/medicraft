@@ -2,6 +2,9 @@ class User
   include Mongoid::Document
   include Mongoid::Timestamps
 
+  GENDERS = %w[male female others].freeze
+  SALUTATIONS = %w[Dr Mr Mrs Ms Sr Mx].freeze
+
   rolify
 
   attr_accessor :password
@@ -48,11 +51,11 @@ class User
   validates :mobile_number, format: { with: /\d[0-9]\)*\z/, message: 'Please enter a valid number' },
                             if: -> { mobile_number.present? }
 
-  def self.salutations
-    %w[Dr Mr Mrs Ms Sr Mx]
-  end
+  validates :salutation, inclusion: { in: SALUTATIONS, message: "should be from #{SALUTATIONS.join(', ')} " },
+                         if: -> { salutation.present? }
 
-  validates :salutation, inclusion: { in: salutations, message: "should be from #{salutations.join(', ')} " }
+  validates :gender, inclusion: { in: GENDERS, message: "should be from #{GENDERS.join(', ')} " },
+                     if: -> { gender.present? }
 
   before_validation :encrypt_password
 
