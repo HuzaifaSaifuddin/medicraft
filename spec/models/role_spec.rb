@@ -7,11 +7,11 @@ RSpec.describe Role, type: :model do
   end
 
   describe 'Validations' do
-    it 'is invalid without a name' do
+    it 'is invalid without name' do
       expect(build(:role, name: nil)).to be_invalid
     end
 
-    it 'is invalid without a unique name' do
+    it 'is invalid without unique name' do
       create(:role)
       expect(build(:role)).to be_invalid
     end

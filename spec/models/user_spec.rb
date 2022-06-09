@@ -7,36 +7,40 @@ RSpec.describe User, type: :model do
   end
 
   describe 'Validations' do
-    it 'is invalid without a salutation' do
+    it 'is invalid without salutation' do
       expect(build(:user, salutation: nil)).to be_invalid
     end
 
-    it 'is invalid without a first_name' do
+    it 'is invalid without first_name' do
       expect(build(:user, first_name: nil)).to be_invalid
     end
 
-    it 'is invalid without a last_name' do
+    it 'is invalid without last_name' do
       expect(build(:user, last_name: nil)).to be_invalid
     end
 
-    it 'is invalid without a gender' do
+    it 'is invalid without gender' do
       expect(build(:user, gender: nil)).to be_invalid
     end
 
-    it 'is invalid without a birth_date' do
+    it 'is invalid without birth_date' do
       expect(build(:user, birth_date: nil)).to be_invalid
     end
 
-    it 'is invalid without a mobile_number' do
+    it 'is invalid without mobile_number' do
       expect(build(:user, mobile_number: nil)).to be_invalid
     end
 
-    it 'is invalid without a email' do
+    it 'is invalid without email' do
       expect(build(:user, email: nil)).to be_invalid
     end
 
-    it 'is invalid without a password' do
+    it 'is invalid without password' do
       expect(build(:user, password: nil)).to be_invalid
+    end
+
+    it 'is invalid without organisation' do
+      expect(build(:user, organisation: nil)).to be_invalid
     end
 
     it 'is invalid without correct format email' do
@@ -49,6 +53,28 @@ RSpec.describe User, type: :model do
 
     it 'is invalid without correct format mobile_number' do
       expect(build(:user, mobile_number: 'dummy')).to be_invalid
+    end
+  end
+
+  describe 'self.authenticate' do
+    it 'authenticates a user with email & password' do
+      user = create(:user, active: true)
+      authenticated_user = User.authenticate(user.email, user.password)
+
+      expect(authenticated_user).to eq(user)
+    end
+
+    it 'returns if user\'s email & password is empty' do
+      authenticated_user = User.authenticate('', '')
+
+      expect(authenticated_user).to eq(nil)
+    end
+
+    it 'returns if user\'s email & password doesn\'t match' do
+      user = create(:user, active: true)
+      authenticated_user = User.authenticate(user.email, 'RandomPassword')
+
+      expect(authenticated_user).to eq(nil)
     end
   end
 
