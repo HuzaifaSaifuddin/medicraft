@@ -1,0 +1,15 @@
+function validatePatient() {
+  $("#search-patient").validate({
+    rules: {
+      // Rules written inline
+    },
+    messages: {
+      'search': {
+        required: 'Patient Search is required.'
+      }
+    },
+    errorPlacement: function (error, element) {
+      error.insertAfter(element);
+    }
+  })
+}

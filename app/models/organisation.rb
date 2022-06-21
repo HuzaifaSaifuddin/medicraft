@@ -33,11 +33,11 @@ class Organisation
   validates :contact_number, format: { with: /\d[0-9]\)*\z/, message: 'Please enter a valid number' },
                              if: -> { contact_number.present? }
 
-  after_create :add_facility
+  after_create :create_facility
 
   private
 
-  def add_facility
+  def create_facility
     facility = facilities.new(name: name, contact_number: contact_number, email: email, active: true)
     facility.users << users
 

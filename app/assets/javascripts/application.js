@@ -20,10 +20,12 @@
 //= require picker.date.min
 //= require jquery.validate
 //= require jquery.validate.additional-methods
+//= require bootstrap-timepicker.min
 //= require_tree .
 
 $('body').on('hide.bs.modal', '.modal', function () {
   $('.modal-backdrop').remove();
+  $(this).html('');
 });
 
 $(document).on('turbolinks:load', function() {

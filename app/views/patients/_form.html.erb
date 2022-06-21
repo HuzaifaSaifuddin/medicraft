@@ -1,0 +1,94 @@
+<div class="row">
+  <div class="col-md-2">
+    <div class="form-group">
+      <span>Salutation<sup class="text-danger">*</sup></span>
+      <%= f.select :salutation, Patient::SALUTATIONS.map{ |v| ["#{v}.", v] }, { include_blank: true }, class: 'form-control', required: true %>
+    </div>
+  </div>
+  <div class="col-md-10">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
+          <span>First Name<sup class="text-danger">*</sup></span>
+          <%= f.text_field :first_name, class: 'form-control', required: true, maxlength: 24 %>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <span>Middle Name</span>
+          <%= f.text_field :middle_name, class: 'form-control', maxlength: 24 %>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <span>Last Name<sup class="text-danger">*</sup></span>
+          <%= f.text_field :last_name, class: 'form-control', required: true, maxlength: 24 %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-2">
+    <div class="form-group">
+      <span>Gender<sup class="text-danger">*</sup></span>
+      <%= f.select :gender, Patient::GENDERS.map{ |v| [v.titleize, v] }, { include_blank: true }, class: 'form-control', required: true %>
+    </div>
+  </div>
+  <div class="col-md-10">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
+          <span>Birth Date</span>
+          <%= f.text_field :birth_date, class: 'form-control', pattern: '[0-9]{2}/[0-9]{2}/[0-9]{4}', value: @patient.birth_date&.strftime('%d/%m/%Y') %>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <span>Age<sup class="text-danger">*</sup> <small>Years</small></span>
+          <%= f.number_field :age_year, class: 'form-control', step: 1, min: 0, max: 100 %>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <small>Months</small>
+          <%= f.number_field :age_month, class: 'form-control', step: 1, min: 0, max: 11 %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-3">
+    <div class="form-group">
+      <span>Mobile Number<sup class="text-danger">*</sup></span>
+      <%= f.telephone_field :mobile_number, class: 'form-control', required: true, pattern: '[789][0-9]{9}' %>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="form-group">
+      <span>Email</span>
+      <%= f.email_field :email, class: 'form-control' %>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="form-group">
+      <span>Blood Group</span>
+      <%= f.select :blood_group, Patient::BLOODGROUPS, { include_blank: true }, class: 'form-control' %>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="form-group">
+      <span>MRN</span>
+      <%= f.text_field :medical_record_number, class: 'form-control' %>
+    </div>
+  </div>
+</div>
+<hr>
+<div class="row">
+  <%= render partial: 'addresses/form.html.erb', locals: { f: f } %>
+</div>
+
+<script type="text/javascript">
+  <%= render partial: 'form.js.erb' %>
+</script>

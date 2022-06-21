@@ -71,6 +71,10 @@ class User
     encrypted_password == BCrypt::Engine.hash_secret(login_password, salt)
   end
 
+  def full_name
+    "#{salutation}. #{first_name} #{middle_name} #{last_name}".strip.gsub(/\s+/, ' ')
+  end
+
   private
 
   def encrypt_password

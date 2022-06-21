@@ -1,0 +1,36 @@
+function validateAppointment() {
+  let formId = '<%= params[:action] %>' == 'edit' ? '#edit_appointment_<%= @appointment.id.to_s %>' : '#new_appointment'
+  $(formId).validate({
+    rules: {
+      // Rules written inline
+    },
+    messages: {
+      'appointment[appointment_date]': {
+        required: 'Appointment Date is required.'
+      },
+      'appointment[appointment_date]': {
+        required: 'Appointment Time is required.'
+      }
+    },
+    errorPlacement: function (error, element) {
+      error.insertAfter(element);
+    }
+  })
+}
+
+const appointmentAppointmentDate = () => {
+  $('#appointment_appointment_date').pickdate({
+    format : 'dd/mm/yyyy',
+    min : 0,
+    onOpen: function(){
+      $('#appointment_appointment_date_root').show();
+    }
+  });
+
+  $('#appointment_appointment_date_root').hide();
+};
+
+appointmentAppointmentDate();
+
+
+$('#appointment_appointment_time').timepicker();

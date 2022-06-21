@@ -1,0 +1,19 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarAppointment" aria-controls="navbarAppointment" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarAppointment">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item dropdown active">
+        <a class="nav-link" href="#" id="subNavbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fa fa-plus"></i> Add Appointment
+        </a>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="subNavbarDropdown">
+          <%= link_to search_patients_path, class: 'dropdown-item py-2 btn-sm text-center', remote: true do %><i class="fa fa-search"></i> Search Patient<% end %>
+          <%= link_to new_patient_path, class: 'dropdown-item py-2 btn-sm text-center', remote: true do %><i class="fa fa-plus"></i> Add New Patient<% end %>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
