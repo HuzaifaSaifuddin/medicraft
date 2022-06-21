@@ -1,0 +1,15 @@
+$("#facilities-tab").on('click', function() {
+  $.ajax({
+    type: 'GET',
+    dataType: 'script',
+    url: '/facilities'
+  })
+})
+
+$("#users-tab").on('click', function() {
+  $.ajax({
+    type: 'GET',
+    dataType: 'script',
+    url: '/users'
+  })
+})

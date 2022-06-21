@@ -3,7 +3,7 @@ class Facility
   include Mongoid::Timestamps
 
   field :name, type: String
-  field :abbreviation, type: String
+  field :display_name, type: String
 
   field :contact_number, type: String
   field :email, type: String

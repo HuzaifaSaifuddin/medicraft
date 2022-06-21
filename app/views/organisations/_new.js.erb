@@ -72,7 +72,7 @@ $.validator.addClassRules("owner-admin-roles", { AdminOwnerRole: true });
 
 const userBirthdatePicker = () => {
   // User DOB Datepicker
-  const eighteenYearsAgo = new Date().getFullYear() - 5
+  const eighteenYearsAgo = new Date().getFullYear() - 18
   const eighteenYearsAgoDate = new Date(new Date().setFullYear(eighteenYearsAgo))
 
   $('#organisation_users_attributes_0_birth_date').pickdate({

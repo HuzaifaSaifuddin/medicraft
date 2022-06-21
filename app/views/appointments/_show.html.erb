@@ -36,7 +36,7 @@
     <% if patient.address.to_s.present? %>
       <div class="row mb-1">
         <div class="col-md-3">Address</div>
-        <div class="col-md-9"><b><%= patient.address.to_s %></b></div>
+        <div class="col-md-9"><b><%= sanitize patient.address.to_s %></b></div>
       </div>
     <% end %>
   </div>

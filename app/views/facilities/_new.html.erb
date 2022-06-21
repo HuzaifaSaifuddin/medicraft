@@ -1,0 +1,19 @@
+<div class="modal-dialog modal-lg">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">New Facility</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <%= form_for @facility, remote: true do |f| %>
+      <div class="modal-body">
+        <%= render partial: 'form.html.erb', locals: { f: f } %>
+      </div>
+      <div class="modal-footer">
+        <%= f.submit 'Create Facility', class: 'btn btn-success', onclick: 'validateFacility()' %>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    <% end %>
+  </div>
+</div>

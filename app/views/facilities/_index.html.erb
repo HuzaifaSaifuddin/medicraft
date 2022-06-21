@@ -1,0 +1,48 @@
+<div class="row mb-3">
+  <div class="col-md-12 text-right">
+    <%= link_to new_facility_path, class: 'btn btn-info btn-sm', remote: true do %><i class="fa fa-plus"></i> Add Facility<% end %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <table class="table table-sm">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Display Name</th>
+          <th>Contact Number</th>
+          <th>Email</th>
+          <th>Fax Number</th>
+          <th>Users</th>
+          <th>Address</th>
+          <th>Active</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% all_facilities.includes(:users).each do |facility| %>
+          <tr>
+            <td><%= facility.name %></td>
+            <td><%= facility.display_name %></td>
+            <td><%= facility.contact_number %></td>
+            <td><%= facility.email %></td>
+            <td><%= facility.fax_number %></td>
+            <td><%= sanitize facility.users.map(&:full_name).join('<br>') %></td>
+            <td><% if facility.address.to_s.present? %><%= sanitize facility.address.to_s %><% end %></td>
+            <td><%= facility.active ? 'Yes' : 'No' %></td>
+            <td>
+              <div class="btn-group shadow-none">
+                <%= link_to edit_facility_path(id: facility.id), remote: true, class: 'btn btn-outline-info py-1' do %>Edit<% end %>
+                <% if facility != current_facility %>
+                  <%= link_to facility_path(id: facility.id), remote: true, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-outline-danger py-1' do %>Delete<% end %>
+                <% else %>
+                  <button class="btn btn-outline-danger py-1" disabled>Delete</button>
+                <% end %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
