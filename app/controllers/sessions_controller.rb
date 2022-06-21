@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+  before_action :authorize_session, only: [:new, :create]
+
   def new; end
 
   def create
@@ -23,5 +25,6 @@ class SessionsController < ApplicationController
   def create_session(user)
     session[:user_id] = user.id
     session[:facility_id] = user.facility_ids.first
+    session[:organisation_id] = user.organisation_id
   end
 end

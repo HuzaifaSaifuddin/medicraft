@@ -1,0 +1,37 @@
+<%= f.hidden_field :patient_id %>
+<div class="row">
+  <div class="col-md-12 patient-details">
+  </div>
+  <div class="col-md-12">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <span>Appointment Date<sup class="text-danger">*</sup></span>
+          <%= f.text_field :appointment_date, class: 'form-control', required: true %>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <span>Appointment Time<sup class="text-danger">*</sup></span>
+          <%= f.text_field :appointment_time, class: 'form-control', required: true, readonly: true %>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <span>Facility<sup class="text-danger">*</sup></span>
+          <%= f.select :facility_id, @facilities.pluck(:name, :id), {}, class: 'form-control' %>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <span>Consultant<sup class="text-danger">*</sup></span>
+          <%= f.select :consultant_id, @users.map{ |user| [user.full_name, user.id.to_s] }, {}, class: 'form-control' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  <%= render partial: 'form.js.erb' %>
+</script>

@@ -13,8 +13,8 @@ class Patient
 
   field :gender, type: String
   field :birth_date, type: Date
-  field :age_year, type: Integer, default: 0
-  field :age_month, type: Integer, default: 0 # Babies
+  field :age_year, type: Integer
+  field :age_month, type: Integer # Babies
 
   field :mobile_number, type: String
   field :email, type: String
@@ -27,14 +27,15 @@ class Patient
   field :registration_time, type: DateTime, default: Time.current
 
   embeds_one :address
+  accepts_nested_attributes_for :address
 
   belongs_to :organisation
 
   validates_presence_of :salutation, :first_name, :last_name, :gender, :mobile_number, :display_id, :registration_time
   validates_uniqueness_of :display_id
 
-  validates :age_year, numericality: { greater_than: 0 }, if: -> { age_month.zero? }
-  validates :age_month, numericality: { greater_than: 0 }, if: -> { age_year.zero? }
+  validates :age_year, numericality: { greater_than: 0 }, if: -> { age_month.present? && age_month.zero? }
+  validates :age_month, numericality: { greater_than: 0 }, if: -> { age_year.present? && age_year.zero? }
 
   validates :blood_group, inclusion: { in: BLOODGROUPS, message: "should be from #{BLOODGROUPS.join(', ')} " },
                           if: -> { blood_group.present? }
@@ -51,6 +52,28 @@ class Patient
 
     self.age_year = years
     self.age_month = (months.zero? && years.zero? ? 1 : months)
+  end
+
+  def full_name
+    "#{salutation}. #{first_name} #{middle_name} #{last_name}".strip.gsub(/\s+/, ' ')
+  end
+
+  def display_age
+    if age_year.to_i.positive? && age_month.to_i.positive?
+      "#{age_year} Years #{age_month} Months"
+    elsif age_year.to_i.positive?
+      "#{age_year} Years"
+    elsif age_month.to_i.positive?
+      "#{age_month} Months"
+    end
+  end
+
+  def display_age_short
+    if age_year.to_i.positive?
+      "#{age_year}y"
+    elsif age_month.to_i.positive?
+      "#{age_month}m"
+    end
   end
 
   def self.set_display_id

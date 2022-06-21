@@ -2,9 +2,6 @@ class Appointment
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  field :scheduling_date, type: Date
-  field :scheduling_time, type: DateTime
-
   field :appointment_date, type: Date
   field :appointment_time, type: DateTime
 
@@ -15,8 +12,9 @@ class Appointment
   belongs_to :user
   belongs_to :facility
   belongs_to :organisation
+  belongs_to :patient
 
-  validates_presence_of :scheduling_date, :scheduling_time, :appointment_date, :appointment_time, :display_id
+  validates_presence_of :appointment_date, :appointment_time, :display_id
   validates_uniqueness_of :display_id
 
   def self.set_display_id

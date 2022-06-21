@@ -1,0 +1,75 @@
+<% patient = @appointment.patient %>
+<div class="row mt-2">
+  <div class="col-md-12">
+    <div class="row mb-1">
+      <div class="col-md-12">
+        <h3><%= patient.full_name %></h3>
+        <p>(<%= patient.display_age %>/<%= patient.gender&.titleize %>)</p>
+      </div>
+    </div>
+    <div class="row mb-1">
+      <div class="col-md-3">Mobile Number</div>
+      <div class="col-md-9"><b><%= patient.mobile_number %></b></div>
+    </div>
+    <div class="row mb-1">
+      <div class="col-md-3">Patient ID</div>
+      <div class="col-md-9"><b><%= patient.display_id %></b></div>
+    </div>
+    <% if patient.medical_record_number.present? %>
+      <div class="row mb-1">
+        <div class="col-md-3">MRN</div>
+        <div class="col-md-9"><b><%= patient.medical_record_number %></b></div>
+      </div>
+    <% end %>
+    <% if patient.blood_group.present? %>
+      <div class="row mb-1">
+        <div class="col-md-3">Blood Group</div>
+        <div class="col-md-9"><b><%= patient.blood_group %></b></div>
+      </div>
+    <% end %>
+    <% if patient.email.present? %>
+      <div class="row mb-1">
+        <div class="col-md-3">Email</div>
+        <div class="col-md-9"><b><%= patient.email %></b></div>
+      </div>
+    <% end %>
+    <% if patient.address.to_s.present? %>
+      <div class="row mb-1">
+        <div class="col-md-3">Address</div>
+        <div class="col-md-9"><b><%= patient.address.to_s %></b></div>
+      </div>
+    <% end %>
+  </div>
+  <div class="col-md-12 text-right">
+    <%= link_to edit_patient_path(id: patient.id), remote: true, class: 'btn btn-link btn-sm p-0' do %>
+      <i class="fa fa-edit"></i> Edit Patient
+    <% end %>
+  </div>
+</div>
+<hr>
+<div class="row mt-2">
+  <div class="col-md-12">
+    <div class="row mb-1">
+      <div class="col-md-12">
+        <h3>Appointment Details</h3>
+      </div>
+    </div>
+    <div class="row mb-1">
+      <div class="col-md-3">Date & Time</div>
+      <div class="col-md-9"><b><%= @appointment.appointment_time.strftime('%I:%M %p') %>, <%= @appointment.appointment_date.strftime('%d %b\'%y') %></b></div>
+    </div>
+    <div class="row mb-1">
+      <div class="col-md-3">Consultant</div>
+      <div class="col-md-9"><b><%= @appointment.consultant.full_name %></b></div>
+    </div>
+    <div class="row mb-1">
+      <div class="col-md-3">Facility</div>
+      <div class="col-md-9"><b><%= @appointment.facility.name %></b></div>
+    </div>
+  </div>
+  <div class="col-md-12 text-right">
+    <%= link_to edit_appointment_path(id: @appointment.id), remote: true, class: 'btn btn-link btn-sm p-0' do %>
+      <i class="fa fa-edit"></i> Edit Appointment
+    <% end %>
+  </div>
+</div>

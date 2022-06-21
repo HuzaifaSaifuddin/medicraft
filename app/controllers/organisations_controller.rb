@@ -1,4 +1,6 @@
 class OrganisationsController < ApplicationController
+  before_action :authorize_session, only: [:new, :create]
+
   def new
     @organisation = Organisation.new
     @organisation.users.build

@@ -1,0 +1,33 @@
+<% address = f.object.address || f.object.build_address %>
+<%= f.fields_for address do |builder| %>
+  <div class="col-md-6">
+    <div class="form-group">
+      <span>Address Line 1</span>
+      <%= builder.text_field :line_one, class: 'form-control' %>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="form-group">
+      <span>Address Line 2</span>
+      <%= builder.text_field :line_two, class: 'form-control' %>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="form-group">
+      <span>City</span>
+      <%= builder.text_field :city, class: 'form-control' %>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="form-group">
+      <span>State</span>
+      <%= builder.text_field :state, class: 'form-control' %>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="form-group">
+      <span>Pincode</span>
+      <%= builder.text_field :pincode, class: 'form-control' %>
+    </div>
+  </div>
+<% end %>

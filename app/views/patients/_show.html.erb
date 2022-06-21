@@ -1,0 +1,63 @@
+<div class="modal-dialog modal-lg">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">Patient Details</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="row mb-2">
+            <div class="col-md-12">
+              <h3><%= @patient.full_name %></h3>
+              <p>(<%= @patient.display_age %>/<%= @patient.gender&.titleize %>)</p>
+            </div>
+          </div>
+          <div class="row mb-2">
+            <div class="col-md-3">Mobile Number</div>
+            <div class="col-md-9"><b><%= @patient.mobile_number %></b></div>
+          </div>
+          <div class="row mb-2">
+            <div class="col-md-3">Patient ID</div>
+            <div class="col-md-9"><b><%= @patient.display_id %></b></div>
+          </div>
+          <% if @patient.medical_record_number.present? %>
+            <div class="row mb-2">
+              <div class="col-md-3">MRN</div>
+              <div class="col-md-9"><b><%= @patient.medical_record_number %></b></div>
+            </div>
+          <% end %>
+          <% if @patient.blood_group.present? %>
+            <div class="row mb-2">
+              <div class="col-md-3">Blood Group</div>
+              <div class="col-md-9"><b><%= @patient.blood_group %></b></div>
+            </div>
+          <% end %>
+          <% if @patient.email.present? %>
+            <div class="row mb-2">
+              <div class="col-md-3">Email</div>
+              <div class="col-md-9"><b><%= @patient.email %></b></div>
+            </div>
+          <% end %>
+          <% if @patient.address.to_s.present? %>
+            <div class="row mb-2">
+              <div class="col-md-3">Address</div>
+              <div class="col-md-9"><b><%= @patient.address.to_s %></b></div>
+            </div>
+          <% end %>
+          <div class="row text-right">
+            <div class="col-md-12">
+              <%= link_to new_appointment_path(patient_id: @patient.id), class: 'btn btn-primary btn-sm', remote: true do %>Add Appointment<% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <%= link_to edit_patient_path(id: @patient.id.to_s), class: 'btn btn-info', remote: true do %>Edit Patient<% end %>
+      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    </div>
+  </div>
+</div>

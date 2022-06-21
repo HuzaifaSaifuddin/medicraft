@@ -24,3 +24,8 @@
 .modal-header-nb+.modal-body {
   padding-top: 0;
 }
+
+.navbar-nav .nav-link {
+  font-size: 14px;
+  padding: 0.625rem;
+}

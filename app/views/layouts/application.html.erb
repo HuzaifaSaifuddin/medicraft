@@ -12,6 +12,10 @@
   <body>
     <a class="btn btn-info skip-link" href="#main-content">Skip to main</a>
 
+    <%= render partial: 'navbar.html.erb' if session[:user_id] %>
+
     <%= yield %>
+
+    <%= render partial: 'modal.html.erb' if session[:user_id] %>
   </body>
 </html>
