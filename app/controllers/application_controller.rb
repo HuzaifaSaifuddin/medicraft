@@ -27,6 +27,16 @@ class ApplicationController < ActionController::Base
   end
   helper_method :current_organisation
 
+  def all_users
+    @all_users ||= current_organisation.users.where(active: true)
+  end
+  helper_method :all_users
+
+  def all_facilities
+    @all_facilities ||= current_organisation.facilities.where(active: true)
+  end
+  helper_method :all_facilities
+
   def valid_session?
     session[:user_id].present? && session[:facility_id].present? && session[:organisation_id].present?
   end

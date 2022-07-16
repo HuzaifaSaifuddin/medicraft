@@ -1,0 +1,60 @@
+function validateUser() {
+  let formId = '<%= params[:action] %>' == 'edit' ? '#edit_user_<%= current_user.id.to_s %>' : '#new_user'
+  $(formId).validate({
+    rules: {
+      // Rules written inline
+    },
+    messages: {
+      'user[salutation]': {
+        required: 'Salutation is required.'
+      },
+      'user[first_name]': {
+        required: 'First name is required.'
+      },
+      'user[last_name]': {
+        required: 'Last name is required.'
+      },
+      'user[gender]': {
+        required: 'Gender is required.'
+      },
+      'user[birth_date]': {
+        required: 'Birth date is required.',
+        pattern: 'Enter a valid birth date.'
+      },
+      'user[email]': {
+        required: 'Email is required.',
+        email: 'Enter a valid email.'
+      },
+      'user[mobile_number]': {
+        required: 'Mobile Number is required.',
+        pattern: 'Enter a valid mobile number.'
+      },
+      'user[facility_ids][]': {
+        required: 'Atleast 1 facility is required.'
+      },
+    },
+    errorPlacement: function (error, element) {
+      error.insertAfter(element);
+    }
+  })
+}
+
+const userBirthdatePicker = () => {
+  // User DOB Datepicker
+  const eighteenYearsAgo = new Date().getFullYear() - 18
+  const eighteenYearsAgoDate = new Date(new Date().setFullYear(eighteenYearsAgo))
+
+  $('#user_birth_date').pickdate({
+    format : 'dd/mm/yyyy',
+    max : eighteenYearsAgoDate,
+    selectYears : 100,
+    selectMonths : true,
+    onOpen: function(){
+      $('#user_birth_date_root').show();
+    }
+  });
+
+  $('#user_birth_date_root').hide();
+}
+
+userBirthdatePicker();

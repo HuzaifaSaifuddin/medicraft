@@ -1,0 +1,27 @@
+function validateOrganisation() {
+  let formId = '<%= params[:action] %>' == 'edit' ? '#edit_organisation_<%= current_organisation.id.to_s %>' : '#new_organisation'
+  $(formId).validate({
+    rules: {
+      // Rules written inline
+    },
+    messages: {
+      'organisation[name]': {
+        required: 'Name is required.'
+      },
+      'organisation[email]': {
+        required: 'Email is required.',
+        email: 'Enter a valid email.'
+      },
+      'organisation[contact_number]': {
+        required: 'Contact Number is required.',
+        pattern: 'Enter a valid mobile number.'
+      },
+      'organisation[website]': {
+        pattern: 'Enter a valid URL'
+      }
+    },
+    errorPlacement: function (error, element) {
+      error.insertAfter(element);
+    }
+  })
+}

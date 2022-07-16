@@ -1,0 +1,5 @@
+$('#userModal').html("<%= j render partial: 'show.html.erb' %>").modal('show');
+
+<% if params[:action] == 'create' || params[:action] == 'update' %>
+  $('#users').html("<%= j render partial: 'index.html.erb' %>")
+<% end %>

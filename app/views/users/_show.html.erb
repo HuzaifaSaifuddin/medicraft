@@ -1,0 +1,74 @@
+<div class="modal-dialog modal-lg">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">New User</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="row mb-2">
+            <div class="col-md-12">
+              <h3><%= @user.full_name %></h3>
+              <p>(<%= @user.age %>/<%= @user.gender&.titleize %>)</p>
+            </div>
+          </div>
+          <div class="row mb-2">
+            <div class="col-md-3">Birth Date</div>
+            <div class="col-md-9"><b><%= @user.birth_date.strftime('%d/%m/%Y') %></b></div>
+          </div>
+          <div class="row mb-2">
+            <div class="col-md-3">Mobile Number</div>
+            <div class="col-md-9"><b><%= @user.mobile_number %></b></div>
+          </div>
+          <div class="row mb-2">
+            <div class="col-md-3">Email</div>
+            <div class="col-md-9"><b><%= @user.email %></b></div>
+          </div>
+          <% if @user.designation.present? %>
+            <div class="row mb-2">
+              <div class="col-md-3">Designation</div>
+              <div class="col-md-9"><b><%= @user.designation %></b></div>
+            </div>
+          <% end %>
+          <% if @user.employee_id.present? %>
+            <div class="row mb-2">
+              <div class="col-md-3">Employee ID</div>
+              <div class="col-md-9"><b><%= @user.employee_id %></b></div>
+            </div>
+          <% end %>
+          <% if @user.licence_number.present? %>
+            <div class="row mb-2">
+              <div class="col-md-3">License Number</div>
+              <div class="col-md-9"><b><%= @user.licence_number %></b></div>
+            </div>
+          <% end %>
+          <% if @user.roles.length > 0 %>
+            <div class="row mb-2">
+              <div class="col-md-3">Roles</div>
+              <div class="col-md-9"><b><%= @user.role_names %></b></div>
+            </div>
+          <% end %>
+          <% if @user.facilities.length > 0 %>
+            <div class="row mb-2">
+              <div class="col-md-3">Facilities</div>
+              <div class="col-md-9"><b><%= sanitize @user.facilities.map(&:name).join('<br>') %></b></div>
+            </div>
+          <% end %>
+          <% if @user.address.to_s.present? %>
+            <div class="row mb-2">
+              <div class="col-md-3">Address</div>
+              <div class="col-md-9"><b><%= sanitize @user.address.to_s %></b></div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <%= link_to edit_user_path(id: @user.id), class: 'btn btn-info', remote: true do %>Edit User<% end %>
+      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    </div>
+  </div>
+</div>

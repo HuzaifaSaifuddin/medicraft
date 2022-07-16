@@ -8,11 +8,14 @@ Rails.application.routes.draw do
   get :signup, to: 'organisations#new'
 
   resources :appointments
+  resources :facilities
+  resources :organisations
   resources :patients do
     collection do
       get :search
       put :search_result
     end
   end
-  resources :organisations
+  resources :settings
+  resources :users
 end

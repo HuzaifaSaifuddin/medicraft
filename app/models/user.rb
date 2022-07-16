@@ -75,6 +75,18 @@ class User
     "#{salutation}. #{first_name} #{middle_name} #{last_name}".strip.gsub(/\s+/, ' ')
   end
 
+  def age
+    time_difference = TimeDifference.between(birth_date, Date.today).in_general
+    years = time_difference[:years]
+    months = time_difference[:months]
+
+    months.positive? ? "#{years} Years #{months} Months" : "#{years} Years"
+  end
+
+  def role_names
+    roles.pluck(:name).map(&:titleize).join(' & ')
+  end
+
   private
 
   def encrypt_password

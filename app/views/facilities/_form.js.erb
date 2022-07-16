@@ -1,0 +1,24 @@
+function validateFacility() {
+  let formId = '<%= params[:action] %>' == 'edit' ? '#edit_facility_<%= @facility.id.to_s %>' : '#new_facility'
+  $(formId).validate({
+    rules: {
+      // Rules written inline
+    },
+    messages: {
+      'facility[name]': {
+        required: 'Name is required.'
+      },
+      'facility[contact_number]': {
+        required: 'Contact Number is required.',
+        pattern: 'Enter a valid mobile number.'
+      },
+      'facility[email]': {
+        required: 'Email is required.',
+        email: 'Enter a valid email.'
+      }
+    },
+    errorPlacement: function (error, element) {
+      error.insertAfter(element);
+    }
+  })
+}

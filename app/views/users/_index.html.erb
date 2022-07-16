@@ -1,0 +1,50 @@
+<div class="row mb-3">
+  <div class="col-md-12 text-right">
+    <%= link_to new_user_path, class: 'btn btn-info btn-sm', remote: true do %><i class="fa fa-plus"></i> Add User<% end %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <table class="table table-sm">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Gender</th>
+          <th>Birth Date</th>
+          <th>Age</th>
+          <th>Mobile Number</th>
+          <th>Email</th>
+          <th>Facilities</th>
+          <th>Address</th>
+          <th>Active</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% all_users.includes(:facilities).each do |user| %>
+          <tr>
+            <td><%= user.full_name %></td>
+            <td><%= user.gender.titleize %></td>
+            <td><%= user.birth_date.strftime('%d/%m/%Y') %></td>
+            <td><%= user.age %></td>
+            <td><%= user.mobile_number %></td>
+            <td><%= user.email %></td>
+            <td><%= sanitize user.facilities.map(&:name).join('<br>') %></td>
+            <td><% if user.address.to_s.present? %><%= sanitize user.address.to_s %><% end %></td>
+            <td><%= user.active ? 'Yes' : 'No' %></td>
+            <td>
+              <div class="btn-group shadow-none">
+                <%= link_to edit_user_path(id: user.id), remote: true, class: 'btn btn-outline-info py-1' do %>Edit<% end %>
+                <% if user != current_user %>
+                  <%= link_to user_path(id: user.id), remote: true, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-outline-danger py-1' do %>Delete<% end %>
+                <% else %>
+                  <button class="btn btn-outline-danger py-1" disabled>Delete</button>
+                <% end %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

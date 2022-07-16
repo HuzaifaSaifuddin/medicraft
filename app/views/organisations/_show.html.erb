@@ -1,0 +1,43 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="row mb-2">
+      <div class="col-md-12">
+        <h3><%= organisation.name %></h3>
+        <p><%= organisation.tagline %></p>
+      </div>
+    </div>
+    <div class="row mb-2">
+      <div class="col-md-3">Contact Number</div>
+      <div class="col-md-9"><b><%= organisation.contact_number %></b></div>
+    </div>
+    <div class="row mb-2">
+      <div class="col-md-3">Email</div>
+      <div class="col-md-9"><b><%= organisation.email %></b></div>
+    </div>
+    <% if organisation.website.present? %>
+      <div class="row mb-2">
+        <div class="col-md-3">Website</div>
+        <div class="col-md-9"><b><%= organisation.website %></b></div>
+      </div>
+    <% end %>
+    <div class="row mb-2">
+      <div class="col-md-3">Facilities</div>
+      <div class="col-md-9"><b><%= sanitize all_facilities.map(&:name).join('<br>') %></b></div>
+    </div>
+    <div class="row mb-2">
+      <div class="col-md-3">Users</div>
+      <div class="col-md-9"><b><%= sanitize all_users.map(&:full_name).join('<br>') %></b></div>
+    </div>
+    <% if organisation.address.to_s.present? %>
+      <div class="row mb-2">
+        <div class="col-md-3">Address</div>
+        <div class="col-md-9"><b><%= sanitize organisation.address.to_s %></b></div>
+      </div>
+    <% end %>
+    <div class="row text-right">
+      <div class="col-md-12">
+        <%= link_to edit_organisation_path(id: organisation.id), class: 'btn btn-info btn-sm', remote: true do %><i class="fa fa-edit"></i> Edit Organisation<% end %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -30,16 +30,16 @@ class PatientsController < ApplicationController
   def search; end
 
   def search_result
-    options = { organisation_id: current_organisation.id.to_s }
-
     case params[:search_type]
     when 'mobile_number'
-      options = options.merge(mobile_number: params[:search])
+      options = { mobile_number: params[:search] }
     when 'display_id'
-      options = options.merge(display_id: params[:search])
+      options = { display_id: params[:search] }
     when 'medical_record_number'
-      options = options.merge(medical_record_number: params[:search])
+      options = { medical_record_number: params[:search] }
     end
+
+    options = options.merge(organisation_id: current_organisation.id) if options
 
     @patients = Patient.where(options).limit(5)
   end

@@ -1,0 +1,54 @@
+<% error_messages = current_organisation.errors.full_messages %>
+<% if error_messages.length > 0 %>
+  <div class="row">
+    <div class="col-md-12 text-danger">
+      <span>The following errors were found</span>
+      <ul>
+        <% error_messages.each do |error_message| %>
+          <li><%= error_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+  <hr>
+<% end %>
+<div class="row">
+  <div class="col-md-6">
+    <div class="form-group">
+      <span>Name<sup class="text-danger">*</sup></span>
+      <%= f.text_field :name, class: 'form-control', required: true %>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="form-group">
+      <span>Contact Number<sup class="text-danger">*</sup></span>
+      <%= f.telephone_field :contact_number, class: 'form-control', required: true, pattern: '[789][0-9]{9}' %>
+    </div>
+  </div>
+  <div class="col-md-12">
+    <div class="form-group">
+      <span>Tagline</span>
+      <%= f.text_field :tagline, class: 'form-control' %>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="form-group">
+      <span>Email<sup class="text-danger">*</sup></span>
+      <%= f.email_field :email, class: 'form-control', required: true %>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="form-group">
+      <span>Website</span>
+      <%= f.text_field :website, class: 'form-control', pattern: '(https?://)?([\da-z.-]+)\.([a-z.]{2,6})([/\w.-]*)*/?' %>
+    </div>
+  </div>
+</div>
+<hr>
+<div class="row">
+  <%= render partial: 'addresses/form.html.erb', locals: { f: f } %>
+</div>
+
+<script type="text/javascript">
+  <%= render partial: 'form.js.erb' %>
+</script>

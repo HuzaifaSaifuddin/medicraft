@@ -1,0 +1,5 @@
+$('#facilityModal').html("<%= j render partial: 'show.html.erb' %>").modal('show');
+
+<% if params[:action] == 'create' || params[:action] == 'update' %>
+  $('#facilities').html("<%= j render partial: 'index.html.erb' %>")
+<% end %>

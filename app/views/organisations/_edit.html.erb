@@ -1,0 +1,19 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">Edit Organisation</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <%= form_for current_organisation, remote: true do |f| %>
+      <div class="modal-body">
+        <%= render partial: 'form.html.erb', locals: { f: f } %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <%= f.submit 'Update Organisation', class: 'btn btn-success', onclick: 'validateOrganisation()' %>
+      </div>
+    <% end %>
+  </div>
+</div>
