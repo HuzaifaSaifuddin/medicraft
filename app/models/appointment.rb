@@ -2,8 +2,8 @@ class Appointment
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  field :appointment_date, type: Date
-  field :appointment_time, type: DateTime
+  field :appointment_date, type: Date, default: Date.current
+  field :appointment_time, type: Time, default: Time.current
 
   field :display_id, type: String, default: -> { Appointment.set_display_id }
 

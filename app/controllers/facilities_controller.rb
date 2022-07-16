@@ -1,6 +1,6 @@
 class FacilitiesController < ApplicationController
   before_action :authorize
-  before_action :find_facility, only: [:edit, :update, :destroy]
+  before_action :find_facility, only: [:edit, :update, :destroy, :users]
 
   def new
     @facility = Facility.new
@@ -30,6 +30,12 @@ class FacilitiesController < ApplicationController
     @facility.destroy
   end
 
+  def users
+    users = @facility.users
+
+    render json: users
+  end
+
   private
 
   def facility_params
@@ -41,6 +47,10 @@ class FacilitiesController < ApplicationController
   end
 
   def find_facility
-    @facility = Facility.find_by(id: params[:id])
+    @facility = if params[:action] == 'users'
+                  Facility.includes(:users).find_by(id: params[:id])
+                else
+                  Facility.find_by(id: params[:id])
+                end
   end
 end

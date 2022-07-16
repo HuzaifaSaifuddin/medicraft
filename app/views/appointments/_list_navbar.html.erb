@@ -1,0 +1,15 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div id="navbarAppointmentList">
+    <ul class="navbar-nav">
+      <li class="nav-item dropdown active">
+        <%= link_to list_appointments_path(date: @filter_date - 1.day), remote: true, class: 'nav-link' do %><i class="fa fa-arrow-left"></i><% end %>
+      </li>
+      <li class="nav-item dropdown active w-50">
+        <%= text_field_tag :current_date, @filter_date.strftime('%d/%m/%Y'), class: 'form-control text-center nav-date-picker', readonly: true, autocomplete: false %>
+      </li>
+      <li class="nav-item dropdown active">
+        <%= link_to list_appointments_path(date: @filter_date + 1.day), remote: true, class: 'nav-link' do %><i class="fa fa-arrow-right"></i><% end %>
+      </li>
+    </ul>
+  </div>
+</nav>

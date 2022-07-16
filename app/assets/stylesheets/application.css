@@ -37,6 +37,16 @@ label.error {
 }
 
 .max-height {
-  height: calc(100vh - 112px);
+  height: calc(100vh - 115px);
   overflow: scroll;
+}
+
+.nav-date-picker {
+  background: transparent !important;
+  opacity: 1 !important;
+  cursor: pointer !important;
+}
+
+#current_date_root {
+  color: initial;
 }

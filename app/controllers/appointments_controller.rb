@@ -2,39 +2,38 @@ class AppointmentsController < ApplicationController
   before_action :authorize
   before_action :find_patient, only: [:new]
   before_action :find_appointment, only: [:show, :edit, :update]
+  before_action :find_appointments, only: [:index, :list]
 
-  def index
-    @appointments = Appointment
-                    .includes(:consultant, :user, :patient)
-                    .where(facility_id: current_facility.id)
-  end
+  def index; end
+
+  def list; end
 
   def new
     @appointment = Appointment.new
-
-    @facilities = Facility.where(organisation_id: current_organisation.id)
-    @users = User.where(facility_ids: Facility.last.id).with_role(:doctor)
-
-    default_values
   end
 
   def create
     @appointment = Appointment.new(appointment_params)
 
-    redirect_to root_path if @appointment.save!
+    if @appointment.save
+      redirect_to root_path
+    else
+      render :new
+    end
   end
 
   def show; end
 
   def edit
-    @facilities = Facility.where(organisation_id: current_organisation.id)
-    @users = User.where(facility_ids: Facility.last.id).with_role(:doctor)
-
-    default_values
+    @users = User.where(facility_ids: @appointment.facility_id).with_role(:doctor)
   end
 
   def update
-    redirect_to root_path if @appointment.update_attributes(appointment_params)
+    if @appointment.update_attributes(appointment_params)
+      redirect_to root_path
+    else
+      render :edit
+    end
   end
 
   private
@@ -51,14 +50,22 @@ class AppointmentsController < ApplicationController
   end
 
   def find_appointment
-    @appointment = Appointment.includes(:consultant, :user, :patient).find_by(id: params[:id])
+    @appointment = if params[:action] == 'show'
+                     Appointment.includes(:consultant, :user, :patient).find_by(id: params[:id])
+                   else
+                     Appointment.find_by(id: params[:id])
+                   end
   end
 
-  def default_values
-    @appointment.patient_id ||= @patient.id
-    @appointment.facility_id ||= current_facility.id
-    @appointment.consultant_id ||= @users.first.id
-    @appointment.appointment_date = (@appointment.appointment_date || Date.current).strftime('%d/%m/%Y')
-    @appointment.appointment_time = (@appointment.appointment_time || Time.now).strftime('%I:%M %p')
+  def find_appointments
+    params[:date] ||= Date.today.to_s
+    @filter_date = begin
+      Date.parse(params[:date])
+    rescue Date::Error
+      Date.today
+    end
+
+    @appointments = Appointment.includes(:consultant, :user, :patient)
+                               .where(facility_id: current_facility.id, appointment_date: @filter_date)
   end
 end

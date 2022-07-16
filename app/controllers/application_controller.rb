@@ -39,6 +39,6 @@ class ApplicationController < ActionController::Base
   helper_method :all_facilities
 
   def valid_session?
-    current_user && current_facility && current_organisation
+    session[:user_id] && session[:facility_id] && session[:organisation_id]
   end
 end

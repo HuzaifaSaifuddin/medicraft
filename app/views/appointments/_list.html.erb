@@ -1,0 +1,37 @@
+<div id='show-appointments' class="max-height">
+  <% @appointments.each do |appointment| %>
+    <% patient = appointment.patient %>
+    <%= link_to appointment_path(id: appointment.id.to_s), remote: true, class: 'card text-dark appointment-card mx-2 my-1' do %>
+      <div class="card-body py-2">
+        <div class="row">
+          <div class="col-md-9">
+            <strong><%= patient.full_name %></strong>
+            <small>(<%= patient.display_age_short %>/<%= patient.gender&.titleize.first %>)</small><br>
+            <span><%= patient.mobile_number %></span>
+          </div>
+          <div class="col-md-3 text-right">
+            <span class="badge badge-success"><%= patient.display_id %></span><br>
+            <% if patient.medical_record_number %>
+              <span class="badge badge-success"><%= patient.medical_record_number %></span>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+  <% if @appointments.count == 0 %>
+    <div class="card text-dark no-appointment-card mx-2 my-1">
+      <div class="card-body py-2">
+        <div class="row">
+          <div class="col-md-12 text-center">
+            <strong>No Appointments</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<script type="text/javascript">
+  <%= render partial: 'list.js.erb' %>
+</script>

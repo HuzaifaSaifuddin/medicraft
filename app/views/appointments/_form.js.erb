@@ -29,8 +29,27 @@ const appointmentAppointmentDate = () => {
 
   $('#appointment_appointment_date_root').hide();
 };
-
 appointmentAppointmentDate();
 
-
 $('#appointment_appointment_time').timepicker();
+
+$("#appointment_facility_id").on('change', function() {
+  let facility_id = $(this).val();
+
+  $.ajax({
+    type: 'GET',
+    dataType: 'JSON',
+    url: `/facilities/${facility_id}/users`,
+    success: function(response) {
+      $.each(response, function(index, user) {
+        let full_name = `${user.salutation}. ${user.first_name} ${user.middle_name} ${user.last_name}`.trim().replace(/\s+/, ' ')
+
+        $("#appointment_consultant_id").append(`<option value="${user._id}">${full_name}</option>`)
+      });
+    }
+  })
+});
+
+if ($('#appointment_consultant_id option').length == 0) {
+  $("#appointment_facility_id").trigger('change');
+};
