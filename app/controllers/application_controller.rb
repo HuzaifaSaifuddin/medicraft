@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
     return if valid_session?
 
     flash[:notice] = 'Session Expired'
+    reset_session
     redirect_to login_path
   end
 
@@ -38,6 +39,6 @@ class ApplicationController < ActionController::Base
   helper_method :all_facilities
 
   def valid_session?
-    session[:user_id].present? && session[:facility_id].present? && session[:organisation_id].present?
+    current_user && current_facility && current_organisation
   end
 end
