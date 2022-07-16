@@ -1,43 +1,15 @@
-<%= render partial: 'sub_navbar.html.erb' %>
 <div class="container-fluid">
   <div class="row">
-    <div class="col-md-6 border-right p-0 bg-light max-height">
-      <% @appointments.each do |appointment| %>
-        <% patient = appointment.patient %>
-        <%= link_to appointment_path(id: appointment.id.to_s), remote: true, class: 'card text-dark appointment-card mx-2 my-1' do %>
-          <div class="card-body py-2">
-            <div class="row">
-              <div class="col-md-9">
-                <strong><%= patient.full_name %></strong>
-                <small>(<%= patient.display_age_short %>/<%= patient.gender&.titleize.first %>)</small><br>
-                <span><%= patient.mobile_number %></span>
-              </div>
-              <div class="col-md-3 text-right">
-                <span class="badge badge-success"><%= patient.display_id %></span><br>
-                <% if patient.medical_record_number %>
-                  <span class="badge badge-success"><%= patient.medical_record_number %></span>
-                <% end %>
-              </div>
-            </div>
-          </div>
-        <% end %>
-      <% end %>
-      <% if @appointments.count == 0 %>
-        <div class="row p-2">
-          <div class="col-md-12 text-center">
-            <strong>No Appointments Today</strong>
-          </div>
-        </div>
-      <% end %>
+    <div class="col-md-6 p-0 bg-light border-right">
+      <div id="show-appointment-list">
+        <%= render partial: 'list_navbar.html.erb' %>
+        <%= render partial: 'list.html.erb' %>
+      </div>
     </div>
-    <div class="col-md-6 bg-light max-height">
-      <div id="show-appointment-details">
-
+    <div class="col-md-6 p-0 bg-light">
+      <%= render partial: 'details_navbar.html.erb' %>
+      <div id="show-appointment-details" class="max-height">
       </div>
     </div>
   </div>
 </div>
-
-<script type="text/javascript">
-  <%= render partial: 'index.js.erb' %>
-</script>

@@ -1,0 +1,26 @@
+$('.nav-date-picker').pickdate({
+  format : 'dd/mm/yyyy',
+  cancel : '',
+  ok : 'Select',
+  today : 'Today',
+  onClose : function() {
+    let date = $('.nav-date-picker').val();
+    $.ajax({
+      type: 'GET',
+      dataType: 'script',
+      url: `/appointments/list?date=${date}`
+    })
+  }
+});
+
+$('.appointment-card').on('click', function() {
+  $('.appointment-card').removeClass('text-light').removeClass('bg-info').addClass('text-dark')
+  $(this).addClass('text-light').addClass('bg-info').removeClass('text-dark')
+})
+
+if ($('.appointment-card')[0]) {
+  $('.appointment-card')[0].click();
+} else {
+  $('#show-appointment-details').html('');
+  $('#show-appointment-details').parent().addClass('bg-light');
+}

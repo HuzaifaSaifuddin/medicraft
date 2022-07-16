@@ -1,0 +1,24 @@
+<div class="col-md-12">
+  <div class="row mb-1">
+    <div class="col-md-12">
+      <h3>Appointment Details</h3>
+    </div>
+  </div>
+  <div class="row mb-1">
+    <div class="col-md-3">Date & Time</div>
+    <div class="col-md-9"><b><%= @appointment.appointment_time.strftime('%I:%M %p') %>, <%= @appointment.appointment_date.strftime('%d %b\'%y') %></b></div>
+  </div>
+  <div class="row mb-1">
+    <div class="col-md-3">Consultant</div>
+    <div class="col-md-9"><b><%= @appointment.consultant.full_name %></b></div>
+  </div>
+  <div class="row mb-1">
+    <div class="col-md-3">Facility</div>
+    <div class="col-md-9"><b><%= @appointment.facility.name %></b></div>
+  </div>
+</div>
+<div class="col-md-12 text-right">
+  <%= link_to edit_appointment_path(id: @appointment.id), remote: true, class: 'btn btn-link btn-sm p-0' do %>
+    <i class="fa fa-edit"></i> Edit Appointment
+  <% end %>
+</div>

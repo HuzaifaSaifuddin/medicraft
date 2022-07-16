@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root 'appointments#index'
+  root to: redirect('/appointments')
 
   get :login, to: 'sessions#new'
   post :login, to: 'sessions#create'
@@ -7,15 +7,28 @@ Rails.application.routes.draw do
 
   get :signup, to: 'organisations#new'
 
-  resources :appointments
-  resources :facilities
+  resources :appointments do
+    collection do
+      get :list
+    end
+  end
+
+  resources :facilities do
+    member do
+      get :users
+    end
+  end
+
   resources :organisations
+
   resources :patients do
     collection do
       get :search
       put :search_result
     end
   end
+
   resources :settings
+
   resources :users
 end
